@@ -21,3 +21,7 @@ DEFAULT_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 BREAK_AFTER_PERIOD = 3  # Insert break after every 3 periods
 ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 SUPPORTED_LANGUAGES = ["en", "es", "fr"]
+
+# Constraints Defaults
+DEFAULT_MAX_CONSECUTIVE = 2
+DEFAULT_MAX_DAILY = 4
