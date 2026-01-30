@@ -1,0 +1,78 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Smart Timetable API",
+        "version": "1.0.0",
+        "description": "API for generating school timetables."
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000/api/v1",
+            "description": "Local server"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-API-Key"
+            }
+        }
+    },
+    "security": [
+        {
+            "ApiKeyAuth": []
+        }
+    ],
+    "paths": {
+        "/health": {
+            "get": {
+                "summary": "System Health",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/generate": {
+            "post": {
+                "summary": "Generate Timetable",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "subjects": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "teachers": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "periods": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful generation"
+                    }
+                }
+            }
+        }
+    }
+}
