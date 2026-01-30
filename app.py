@@ -106,6 +106,18 @@ def generate() -> Tuple[Response, int]:
         "status": "success"
     }
     
+    # Save to DB
+    try:
+        from database import get_db
+        db = get_db()
+        db.execute(
+            'INSERT INTO history (subjects, teachers, periods, duration, status) VALUES (?, ?, ?, ?, ?)',
+            (str(len(subjects)), str(len(teachers)), periods_per_day, duration, 'success')
+        )
+        db.commit()
+    except Exception as e:
+        logger.error(f"DB Error: {e}")
+
     return api_response(data=result)
 
 @app.route("/validate", methods=["POST"])
@@ -172,6 +184,10 @@ def add_security_headers(response):
 # Apply Middleware
 from middleware import RequestPerformanceMiddleware
 app.wsgi_app = RequestPerformanceMiddleware(app.wsgi_app)
+
+# Init Database
+from database import init_app
+init_app(app)
 
 if __name__ == "__main__":
     logger.info(f"Starting server on port {PORT}, debug={DEBUG}")
