@@ -34,7 +34,10 @@ def extract_request_data(data: Dict[str, Any]) -> Tuple[List[str], List[str], in
         data: The JSON request body.
         
     Returns:
-        Tuple containing cleaned subjects, teachers, and periods.
+        Tuple containing:
+            - subjects (List[str]): Unique sorted list of subjects.
+            - teachers (List[str]): Unique sorted list of teachers.
+            - periods_per_day (int): Validated periods per day.
     """
     subjects_raw = data.get("subjects", "")
     teachers_raw = data.get("teachers", "")
