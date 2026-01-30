@@ -134,9 +134,25 @@ class Scheduler:
             slots.append(f"Period {i+1} ({start_str})") 
         return slots
 
-    def generate(self) -> TimetableResult:
-        """Execute the generation pipeline."""
-        pool = self._generate_pools()
+    def generate(self, strategy: str = "standard") -> TimetableResult:
+        """
+        Generate the timetable.
+        """
+        # 1. Expand subjects into a pool of slots
+        pool = self._create_slot_pool()
+        
+        # Optimization
+        if strategy == "genetic":
+            from genetic import GeneticOptimizer
+            optimizer = GeneticOptimizer()
+            pool = optimizer.optimize(pool)
+        else:
+            # Standard heuristic shuffle
+            random.shuffle(pool)
+            # Sort hard subjects to be first? (Heuristic)
+            # pool.sort(key=lambda s: 0 if 'Math' in s or 'Physics' in s else 1)
+        
+        # 2. Distribute slots
         raw_schedule = self._distribute_slots(pool)
         optimized_schedule = self._optimize(raw_schedule)
         time_slots = self._generate_time_slots()
