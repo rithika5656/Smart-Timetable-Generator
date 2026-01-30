@@ -45,3 +45,9 @@ class HistoryEntry:
     subjects: int
     teachers: int
     duration: float
+
+@dataclass
+class ConstraintViolation:
+    """Represents a rule violation."""
+    rule: str
+    message: str
