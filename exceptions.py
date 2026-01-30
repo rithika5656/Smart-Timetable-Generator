@@ -9,3 +9,7 @@ class TimetableError(Exception):
         super().__init__(message)
         self.message = message
         self.status_code = status_code
+
+class GenerationTimeoutError(TimetableError):
+    """Raised when generation takes too long."""
+    pass
