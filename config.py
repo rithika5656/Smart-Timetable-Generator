@@ -13,3 +13,7 @@ MIN_PERIODS = 1
 MAX_PERIODS = 10
 MAX_SUBJECTS = 20
 MAX_TEACHERS = 20
+
+# Algorithm Config
+START_HOUR = 9  # 9 AM
+DEFAULT_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
