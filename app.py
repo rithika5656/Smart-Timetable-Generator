@@ -12,7 +12,7 @@ from scheduler import generate_scheduler_response
 # Import from new modules
 from config import PORT, DEBUG, MAX_SUBJECTS, MAX_TEACHERS, MIN_PERIODS, MAX_PERIODS
 from exceptions import TimetableError
-from utils import api_response, extract_request_data, validate_request_data
+from utils import api_response, extract_request_data, validate_request_data, generate_csv
 
 # --- Logging Setup ---
 logging.basicConfig(
@@ -107,6 +107,28 @@ def generate() -> Tuple[Response, int]:
     }
     
     return api_response(data=result)
+
+@app.route("/export", methods=["POST"])
+def export_csv() -> Response:
+    """
+    Export timetable to CSV.
+    """
+    try:
+        data = request.get_json()
+        timetable = data.get("timetable")
+        if not timetable:
+            return jsonify({"error": "No timetable data provided"}), 400
+            
+        csv_content = generate_csv(timetable)
+        
+        return Response(
+            csv_content,
+            mimetype="text/csv",
+            headers={"Content-disposition": "attachment; filename=timetable.csv"}
+        )
+    except Exception as e:
+        logger.error(f"Export error: {e}")
+        return jsonify({"error": "Failed to export CSV"}), 500
 
 if __name__ == "__main__":
     logger.info(f"Starting server on port {PORT}, debug={DEBUG}")
