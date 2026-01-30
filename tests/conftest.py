@@ -13,6 +13,10 @@ def client():
         yield client
 
 @pytest.fixture
+def api_headers():
+    return {"X-API-Key": "dev-api-key"}
+
+@pytest.fixture
 def sample_data():
     """Sample data for testing."""
     return {
