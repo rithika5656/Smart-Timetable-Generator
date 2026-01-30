@@ -146,6 +146,22 @@ def export_csv() -> Response:
         logger.error(f"Export error: {e}")
         return jsonify({"error": "Failed to export CSV"}), 500
 
+        return jsonify({"error": "Failed to export CSV"}), 500
+
+@app.route("/lang/<lang_code>")
+def get_language_pack(lang_code: str) -> Tuple[Response, int]:
+    """
+    Get language translation pack.
+    """
+    from i18n import load_locale, get_supported_languages
+    from config import SUPPORTED_LANGUAGES
+    
+    if lang_code not in SUPPORTED_LANGUAGES:
+        return api_response(error="Language not supported", status=404)
+        
+    data = load_locale(lang_code)
+    return api_response(data=data)
+
 @app.after_request
 def add_security_headers(response):
     from security import get_security_headers
