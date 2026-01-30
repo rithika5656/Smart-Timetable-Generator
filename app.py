@@ -191,7 +191,14 @@ init_app(app)
 
 # Register Blueprints
 from blueprints.admin import admin_bp
+from blueprints.api_v1 import api_v1
+
 app.register_blueprint(admin_bp)
+app.register_blueprint(api_v1)
+
+@app.route("/docs")
+def api_docs():
+    return render_template("swagger.html")
 
 # Set secret key for sessions
 app.secret_key = 'dev-secret-key'
