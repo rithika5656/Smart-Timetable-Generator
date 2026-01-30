@@ -77,3 +77,35 @@ def validate_request_data(subjects: List[str], teachers: List[str], periods_per_
         
     if len(teachers) > MAX_TEACHERS:
         raise TimetableError(f"Too many teachers. Maximum allowed is {MAX_TEACHERS}")
+
+def generate_csv(timetable: Dict[str, List[Dict[str, Any]]]) -> str:
+    """
+    Convert timetable JSON structure to CSV string.
+    
+    Args:
+        timetable: The timetable dictionary {day: [sessions]}.
+        
+    Returns:
+        CSV formatted string.
+    """
+    import io
+    import csv
+    
+    output = io.StringIO()
+    writer = csv.writer(output)
+    
+    # Headers
+    headers = ["Day", "Period", "Subject", "Teacher"]
+    writer.writerow(headers)
+    
+    # Rows
+    for day, sessions in timetable.items():
+        for session in sessions:
+            writer.writerow([
+                day,
+                session['period'],
+                session['subject'],
+                session['teacher']
+            ])
+            
+    return output.getvalue()
