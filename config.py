@@ -25,3 +25,6 @@ SUPPORTED_LANGUAGES = ["en", "es", "fr"]
 # Constraints Defaults
 DEFAULT_MAX_CONSECUTIVE = 2
 DEFAULT_MAX_DAILY = 4
+
+# Security
+API_KEY = os.getenv("API_KEY", "dev-api-key")
