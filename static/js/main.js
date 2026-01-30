@@ -30,6 +30,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+/**
+ * Handle form submission.
+ * @param {Event} e - Submit event.
+ */
 async function handleFormSubmit(e) {
     e.preventDefault();
 
