@@ -7,7 +7,7 @@ from http import HTTPStatus
 from typing import Tuple
 
 from flask import Flask, render_template, request, Response
-from timetable_generator import generate_timetable
+from scheduler import generate_scheduler_response
 
 # Import from new modules
 from config import PORT, DEBUG, MAX_SUBJECTS, MAX_TEACHERS, MIN_PERIODS, MAX_PERIODS
@@ -92,7 +92,7 @@ def generate() -> Tuple[Response, int]:
     
     # Generate
     try:
-        result = generate_timetable(subjects, teachers, periods_per_day)
+        result = generate_scheduler_response(subjects, teachers, periods_per_day)
     except Exception as e:
         logger.error(f"Algorithm error: {str(e)}")
         raise TimetableError(f"Generation failed: {str(e)}", status_code=HTTPStatus.INTERNAL_SERVER_ERROR)
