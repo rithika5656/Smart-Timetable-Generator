@@ -1,9 +1,18 @@
+import { showToast } from './toast.js';
+import { t, initI18n } from './i18n.js';
+
 /**
  * UI Manipulation layer.
  */
 
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+    initI18n();
+});
+
 export function showLoading(loadingDiv, btn) {
     loadingDiv.classList.add('show');
+    loadingDiv.querySelector('p').textContent = t('msg_generating');
     if (btn) btn.disabled = true;
 }
 
@@ -13,13 +22,7 @@ export function hideLoading(loadingDiv, btn) {
 }
 
 export function showError(element, message) {
-    element.textContent = message;
-    element.style.display = 'block';
-
-    // Shake animation
-    element.style.animation = 'none';
-    element.offsetHeight; // Trigger reflow
-    element.style.animation = 'shake 0.5s ease-in-out';
+    showToast(message || t('msg_error'), 'error');
 }
 
 export function clearError(element) {
@@ -34,7 +37,7 @@ export function displayTimetable(data, containerId) {
     const container = document.getElementById(containerId);
 
     // Build Header
-    let headerHtml = '<tr><th>Time</th>';
+    let headerHtml = `<tr><th>${t('col_time')}</th>`;
     days.forEach(day => headerHtml += `<th>${day}</th>`);
     headerHtml += '</tr>';
     tableHead.innerHTML = headerHtml;
@@ -53,14 +56,18 @@ export function displayTimetable(data, containerId) {
             const session = sessions.find(s => s.period === i + 1);
 
             if (session) {
-                bodyHtml += `
-                    <td>
-                        <div class="class-slot">
-                            <div class="subject-name">${session.subject}</div>
-                            <div class="teacher-name">${session.teacher}</div>
-                        </div>
-                    </td>
-                `;
+                if (session.type === 'Break') {
+                    bodyHtml += `<td class="break-slot">☕ Break</td>`;
+                } else {
+                    bodyHtml += `
+                        <td>
+                            <div class="class-slot">
+                                <div class="subject-name">${session.subject}</div>
+                                <div class="teacher-name">${session.teacher}</div>
+                            </div>
+                        </td>
+                    `;
+                }
             } else {
                 bodyHtml += '<td>-</td>';
             }
@@ -107,19 +114,16 @@ export function displayTimetable(data, containerId) {
     }
 
     // Export CSV
-    const exportBtn = createButton('📥 Export CSV', () => downloadCSV(data.timetable));
-    actionsDiv.appendChild(exportBtn);
+    actionsDiv.appendChild(createButton(t('btn_export'), () => downloadCSV(data.timetable)));
 
     // Print
-    const printBtn = createButton('🖨️ Print', () => window.print());
-    actionsDiv.appendChild(printBtn);
+    actionsDiv.appendChild(createButton(t('btn_print'), () => window.print()));
 
     // Copy JSON
-    const copyBtn = createButton('📋 Copy JSON', () => {
+    actionsDiv.appendChild(createButton(t('btn_copy'), () => {
         navigator.clipboard.writeText(JSON.stringify(data.timetable, null, 2));
-        import('./toast.js').then(m => m.showToast('Copied to clipboard!', 'success'));
-    });
-    actionsDiv.appendChild(copyBtn);
+        showToast(t('msg_copied'), 'success');
+    }));
 
     setTimeout(() => {
         container.scrollIntoView({ behavior: 'smooth', block: 'start' });
