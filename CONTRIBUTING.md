@@ -16,3 +16,8 @@ This project follows a modular architecture:
 - Add unit tests for any new logic in `scheduler.py`.
 - Add integration tests for new API endpoints.
 - Ensure all tests pass (`test.bat`) before submitting a PR.
+
+## Pull Request Process
+1. Update README with behavioral changes.
+2. Increase version numbers if applicable.
+3. Merge after CI passes.
