@@ -6,6 +6,12 @@ from typing import List, Dict, Any
 
 class GeneticOptimizer:
     def __init__(self, population_size=50, generations=100):
+        """
+        Initialize the genetic optimizer.
+        Args:
+            population_size: Size of population.
+            generations: Number of generations to evolve.
+        """
         self.population_size = population_size
         self.generations = generations
 
