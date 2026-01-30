@@ -4,6 +4,9 @@
 import { t } from './i18n.js';
 import { displayTimetable } from './ui.js';
 
+/**
+ * Fetch history from the server.
+ */
 export async function fetchHistory() {
     try {
         const response = await fetch('/history');
@@ -14,6 +17,10 @@ export async function fetchHistory() {
     }
 }
 
+/**
+ * Render history items to the DOM.
+ * @param {Array} history - List of history entries.
+ */
 function renderHistory(history) {
     const container = document.getElementById('historyList');
     if (!container) return;
