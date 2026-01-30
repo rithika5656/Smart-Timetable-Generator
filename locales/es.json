@@ -1,0 +1,20 @@
+{
+    "title": "Generador de Horarios Inteligente",
+    "subtitle": "Genera horarios sin conflictos en segundos",
+    "lbl_subjects": "Asignaturas",
+    "lbl_teachers": "Profesores",
+    "lbl_periods": "Periodos por Día",
+    "ph_subjects": "Matemáticas, Física, Química",
+    "ph_teachers": "Sr. A, Sra. B, Dr. C",
+    "btn_generate": "Generar Horario",
+    "btn_export": "📥 Exportar CSV",
+    "btn_print": "🖨️ Imprimir",
+    "btn_copy": "📋 Copiar JSON",
+    "btn_reset": "Reiniciar",
+    "col_time": "Hora",
+    "msg_generating": "Generando...",
+    "msg_success": "¡Horario generado con éxito!",
+    "msg_error": "Ocurrió un error.",
+    "msg_copied": "¡Copiado al portapapeles!",
+    "msg_reset": "Formulario reiniciado"
+}
