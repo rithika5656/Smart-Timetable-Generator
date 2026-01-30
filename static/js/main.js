@@ -6,6 +6,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (form) {
         form.addEventListener('submit', handleFormSubmit);
+
+        // Reset Handler
+        const resetBtn = document.createElement('button');
+        resetBtn.type = 'button';
+        resetBtn.className = 'btn';
+        resetBtn.style.background = '#6b7280';
+        resetBtn.style.marginLeft = '10px';
+        resetBtn.textContent = 'Reset';
+        resetBtn.onclick = () => {
+            form.reset();
+            document.getElementById('timetableContainer').classList.remove('show');
+            import('./toast.js').then(m => m.showToast('Form reset', 'info'));
+        };
+        form.querySelector('button[type="submit"]').parentNode.appendChild(resetBtn);
     }
 });
 

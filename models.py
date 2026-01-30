@@ -15,12 +15,18 @@ class DayOfWeek(str, Enum):
     SATURDAY = "Saturday"
     SUNDAY = "Sunday"
 
+class SessionType(str, Enum):
+    """Type of session."""
+    LECTURE = "Lecture"
+    BREAK = "Break"
+
 @dataclass
 class ClassSession:
     """Represents a single class session."""
     period: int
     subject: str
     teacher: str
+    type: SessionType = SessionType.LECTURE
 
 @dataclass
 class TimetableResult:

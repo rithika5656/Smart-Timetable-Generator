@@ -93,21 +93,45 @@ export function displayTimetable(data, containerId) {
     // Show and Scroll
     container.classList.add('show');
 
-    // Add Export Button if not exists
-    let exportBtn = document.getElementById('exportBtn');
-    if (!exportBtn) {
-        exportBtn = document.createElement('button');
-        exportBtn.id = 'exportBtn';
-        exportBtn.className = 'btn';
-        exportBtn.style.marginTop = '20px';
-        exportBtn.innerHTML = '📥 Export CSV';
-        exportBtn.onclick = () => downloadCSV(data.timetable);
-        container.appendChild(exportBtn);
+    // Action Buttons Container
+    let actionsDiv = document.getElementById('actionsDiv');
+    if (!actionsDiv) {
+        actionsDiv = document.createElement('div');
+        actionsDiv.id = 'actionsDiv';
+        actionsDiv.style.display = 'flex';
+        actionsDiv.style.gap = '10px';
+        actionsDiv.style.marginTop = '20px';
+        container.appendChild(actionsDiv);
+    } else {
+        actionsDiv.innerHTML = ''; // Clear previous buttons
     }
+
+    // Export CSV
+    const exportBtn = createButton('📥 Export CSV', () => downloadCSV(data.timetable));
+    actionsDiv.appendChild(exportBtn);
+
+    // Print
+    const printBtn = createButton('🖨️ Print', () => window.print());
+    actionsDiv.appendChild(printBtn);
+
+    // Copy JSON
+    const copyBtn = createButton('📋 Copy JSON', () => {
+        navigator.clipboard.writeText(JSON.stringify(data.timetable, null, 2));
+        import('./toast.js').then(m => m.showToast('Copied to clipboard!', 'success'));
+    });
+    actionsDiv.appendChild(copyBtn);
 
     setTimeout(() => {
         container.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
+}
+
+function createButton(text, onClick) {
+    const btn = document.createElement('button');
+    btn.className = 'btn';
+    btn.innerHTML = text;
+    btn.onclick = onClick;
+    return btn;
 }
 
 async function downloadCSV(timetable) {

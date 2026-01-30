@@ -1,0 +1,33 @@
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .container,
+    .input-section,
+    .btn,
+    .teacher-grid {
+        display: none !important;
+    }
+
+    #timetableContainer {
+        display: block !important;
+        box-shadow: none;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 1px solid black;
+        color: black !important;
+    }
+
+    .class-slot {
+        background: none !important;
+    }
+}

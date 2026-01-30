@@ -399,8 +399,25 @@ td strong {
     40%,
     60%,
     80% {
-        transform: translateX(5px);
+        transform: translate(1px, 2px) rotate(-1deg);
     }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.toast {
+    font-size: 14px;
+    font-weight: 500;
 }
 
 /* Responsive */

@@ -78,6 +78,10 @@ def validate_request_data(subjects: List[str], teachers: List[str], periods_per_
     if len(teachers) > MAX_TEACHERS:
         raise TimetableError(f"Too many teachers. Maximum allowed is {MAX_TEACHERS}")
 
+    # Check for reasonable ratio
+    if len(subjects) > len(teachers) * 2:
+        raise TimetableError("Too many subjects for the number of teachers")
+
 def generate_csv(timetable: Dict[str, List[Dict[str, Any]]]) -> str:
     """
     Convert timetable JSON structure to CSV string.
