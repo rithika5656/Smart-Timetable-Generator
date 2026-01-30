@@ -16,5 +16,6 @@
     "msg_success": "Emploi du temps généré avec succès !",
     "msg_error": "Une erreur est survenue.",
     "msg_copied": "Copié dans le presse-papiers !",
-    "msg_reset": "Formulaire réinitialisé"
+    "msg_reset": "Formulaire réinitialisé",
+    "msg_loading": "Veuillez patienter..."
 }
