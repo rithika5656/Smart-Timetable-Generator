@@ -49,6 +49,17 @@ export function displayTimetable(data, containerId) {
     const teacherList = document.getElementById('teacherList');
     const container = document.getElementById(containerId);
 
+    // Violations
+    if (data.meta && data.meta.violations && data.meta.violations.length > 0) {
+        let warnHtml = '<div class="alert alert-warning"><strong>⚠️ Constraint Violations:</strong><ul>';
+        data.meta.violations.forEach(v => warnHtml += `<li>${v}</li>`);
+        warnHtml += '</ul></div>';
+        // Prepend to container
+        const existingAlert = container.querySelector('.alert-warning');
+        if (existingAlert) existingAlert.remove();
+        container.insertAdjacentHTML('afterbegin', warnHtml);
+    }
+
     // Build Header
     let headerHtml = `<tr><th>${t('col_time')}</th>`;
     days.forEach(day => headerHtml += `<th>${day}</th>`);
