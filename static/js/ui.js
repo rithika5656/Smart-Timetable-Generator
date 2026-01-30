@@ -25,6 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+/**
+ * Show loading spinner.
+ * @param {HTMLElement} loadingDiv 
+ * @param {HTMLButtonElement} btn 
+ */
 export function showLoading(loadingDiv, btn) {
     loadingDiv.classList.add('show');
     loadingDiv.querySelector('p').textContent = t('msg_generating');
