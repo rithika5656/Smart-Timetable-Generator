@@ -1,5 +1,6 @@
 import { showToast } from './toast.js';
 import { t, initI18n } from './i18n.js';
+import { fetchHistory } from './history.js';
 
 /**
  * UI Manipulation layer.
@@ -8,6 +9,18 @@ import { t, initI18n } from './i18n.js';
 // Init
 document.addEventListener('DOMContentLoaded', () => {
     initI18n();
+
+    // History Toggle
+    const historyBtn = document.getElementById('historyBtn');
+    if (historyBtn) {
+        historyBtn.onclick = () => {
+            const panel = document.getElementById('historyPanel');
+            panel.classList.toggle('show');
+            if (panel.classList.contains('show')) {
+                fetchHistory();
+            }
+        };
+    }
 });
 
 export function showLoading(loadingDiv, btn) {
