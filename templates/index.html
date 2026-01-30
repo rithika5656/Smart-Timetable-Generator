@@ -16,35 +16,34 @@
 
 <body>
     <div class="container">
-        <header>
-            <h1>📚 Smart Timetable Generator</h1>
-            <p>Generate conflict-free class timetables automatically</p>
-        </header>
+        <div class="header">
+            <h1 data-i18n="title">Smart Timetable Generator</h1>
+            <p data-i18n="subtitle">Generate conflict-free schedules in seconds</p>
+
+            <select id="langSelector" class="lang-picker">
+                <option value="en">🇺🇸 English</option>
+                <option value="es">🇪🇸 Español</option>
+                <option value="fr">🇫🇷 Français</option>
+            </select>
+        </div>
 
         <div class="form-card">
-            <form id="timetableForm">
+            <form id="timetableForm" class="input-section">
                 <div class="form-group">
-                    <label for="subjects">📖 Subjects (comma-separated)</label>
+                    <label for="subjects" data-i18n="lbl_subjects">📖 Subjects</label>
                     <input type="text" id="subjects" name="subjects"
-                        placeholder="e.g., Mathematics, Physics, Chemistry, English, Computer Science"
-                        value="Mathematics, Physics, Chemistry, English, Computer Science">
+                        placeholder="Math, Physics, Chemistry, English, History"
+                        value="Mathematics, Physics, Chemistry, English, Computer Science" data-i18n="ph_subjects">
                 </div>
 
                 <div class="form-group">
-                    <label for="teachers">👨‍🏫 Teachers (comma-separated)</label>
-                    <input type="text" id="teachers" name="teachers"
-                        placeholder="e.g., Mr. Smith, Ms. Johnson, Mr. Brown, Ms. Davis"
-                        value="Mr. Smith, Ms. Johnson, Mr. Brown, Ms. Davis, Mr. Wilson">
-                </div>
-
-                <div class="form-group">
-                    <label for="periods">⏰ Periods per Day</label>
-                    <select id="periods" name="periods">
-                        <option value="4">4 Periods</option>
-                        <option value="5">5 Periods</option>
-                        <option value="6" selected>6 Periods</option>
-                        <option value="7">7 Periods</option>
-                        <option value="8">8 Periods</option>
+                    <label for="teachers" data-i18n="lbl_teachers">👨‍🏫 Teachers</label>
+                    <input type="text" id="teachers" name="teachers" <select id="periods" name="periods">
+                    <option value="4">4 Periods</option>
+                    <option value="5">5 Periods</option>
+                    <option value="6" selected>6 Periods</option>
+                    <option value="7">7 Periods</option>
+                    <option value="8">8 Periods</option>
                     </select>
                 </div>
 
