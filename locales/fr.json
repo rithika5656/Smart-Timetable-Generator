@@ -1,0 +1,20 @@
+{
+    "title": "Générateur d'Emploi du Temps",
+    "subtitle": "Générez des plannings sans conflits en quelques secondes",
+    "lbl_subjects": "Matières",
+    "lbl_teachers": "Enseignants",
+    "lbl_periods": "Périodes par Jour",
+    "ph_subjects": "Maths, Physique, Chimie",
+    "ph_teachers": "M. A, Mme B, Dr C",
+    "btn_generate": "Générer",
+    "btn_export": "📥 Exporter CSV",
+    "btn_print": "🖨️ Imprimer",
+    "btn_copy": "📋 Copier JSON",
+    "btn_reset": "Réinitialiser",
+    "col_time": "Heure",
+    "msg_generating": "Génération...",
+    "msg_success": "Emploi du temps généré avec succès !",
+    "msg_error": "Une erreur est survenue.",
+    "msg_copied": "Copié dans le presse-papiers !",
+    "msg_reset": "Formulaire réinitialisé"
+}
