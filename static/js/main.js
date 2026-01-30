@@ -20,6 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
             import('./toast.js').then(m => m.showToast('Form reset', 'info'));
         };
         form.querySelector('button[type="submit"]').parentNode.appendChild(resetBtn);
+
+        // Keyboard Shortcut
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                handleFormSubmit(e);
+            }
+        });
     }
 });
 
