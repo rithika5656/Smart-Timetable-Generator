@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin Dashboard</h1>
+            <a href="{{ url_for('admin.logout') }}" class="btn" style="background: #ef4444">Logout</a>
+        </header>
+
+        <div class="card">
+            <h3>System Status</h3>
+            <p>✅ Server Running</p>
+            <p>📊 DB Connected</p>
+        </div>
+
+        <div class="card" style="margin-top: 20px">
+            <h3>Quick Actions</h3>
+            <a href="/" class="btn">Go to App</a>
+        </div>
+    </div>
+</body>
+
+</html>
