@@ -189,6 +189,13 @@ app.wsgi_app = RequestPerformanceMiddleware(app.wsgi_app)
 from database import init_app
 init_app(app)
 
+# Register Blueprints
+from blueprints.admin import admin_bp
+app.register_blueprint(admin_bp)
+
+# Set secret key for sessions
+app.secret_key = 'dev-secret-key'
+
 if __name__ == "__main__":
     logger.info(f"Starting server on port {PORT}, debug={DEBUG}")
     app.run(debug=DEBUG, port=PORT)
