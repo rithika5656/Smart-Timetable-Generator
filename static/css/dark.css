@@ -1,0 +1,56 @@
+/* Dark Mode Variable Overrides */
+[data-theme="dark"] {
+    --primary: #818cf8;
+    --primary-dark: #6366f1;
+    --secondary: #2dd4bf;
+    --background: #0f172a;
+    --card-bg: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --success: #34d399;
+    --error: #f87171;
+    --warning: #fbbf24;
+}
+
+[data-theme="dark"] body {
+    background-image: none;
+    background-color: var(--background);
+}
+
+[data-theme="dark"] .form-card,
+[data-theme="dark"] .schedule-container,
+[data-theme="dark"] .history-panel,
+[data-theme="dark"] .login-card,
+[data-theme="dark"] .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] select {
+    background: #0f172a;
+    border-color: var(--border);
+    color: white;
+}
+
+[data-theme="dark"] th {
+    background: #334155;
+    color: white;
+}
+
+[data-theme="dark"] td {
+    border-color: var(--border);
+    color: var(--text-muted);
+}
+
+[data-theme="dark"] .lang-picker {
+    background: var(--card-bg);
+    color: white;
+    border-color: var(--border);
+}
+
+[data-theme="dark"] .teacher-item {
+    background: #334155;
+}
