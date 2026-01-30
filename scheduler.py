@@ -139,7 +139,7 @@ class Scheduler:
         Generate the timetable.
         """
         # 1. Expand subjects into a pool of slots
-        pool = self._create_slot_pool()
+        pool = self._generate_pools()
         
         # Optimization
         if strategy == "genetic":
@@ -201,10 +201,10 @@ class Scheduler:
             
         return all_violations
 
-def generate_scheduler_response(subjects: List[str], teachers: List[str], periods: int) -> Dict[str, Any]:
+def generate_scheduler_response(subjects: List[str], teachers: List[str], periods: int, strategy: str = "standard") -> Dict[str, Any]:
     """Public interface for the scheduling engine."""
     scheduler = Scheduler(subjects, teachers, periods)
-    result = scheduler.generate()
+    result = scheduler.generate(strategy=strategy)
     
     return {
         "timetable": result.timetable,
