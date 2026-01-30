@@ -1,6 +1,7 @@
 import { showToast } from './toast.js';
 import { t, initI18n } from './i18n.js';
 import { fetchHistory } from './history.js';
+import { initTheme } from './theme.js';
 
 /**
  * UI Manipulation layer.
@@ -9,6 +10,7 @@ import { fetchHistory } from './history.js';
 // Init
 document.addEventListener('DOMContentLoaded', () => {
     initI18n();
+    initTheme();
 
     // History Toggle
     const historyBtn = document.getElementById('historyBtn');
