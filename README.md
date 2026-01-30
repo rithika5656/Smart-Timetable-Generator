@@ -60,3 +60,9 @@ docker run -p 5000:5000 timetable-app
 
 ## 🤝 Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## 🧪 Running Tests
+To run the test suite:
+```bash
+pytest
+```
