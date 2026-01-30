@@ -33,3 +33,10 @@ def test_generate_validation_error(client):
     response = client.post("/generate", json=payload)
     assert response.status_code == HTTPStatus.BAD_REQUEST
     assert "error" in response.json
+
+def test_validate_endpoint(client):
+    """Test /validate endpoint."""
+    payload = {"subjects": "Math,History", "teachers": "A,B", "periods_per_day": 5}
+    response = client.post("/validate", json=payload)
+    assert response.status_code == 200
+    assert response.json["valid"] is True
