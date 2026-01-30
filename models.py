@@ -3,7 +3,7 @@ Data models for the timetable scheduler.
 """
 from dataclasses import dataclass
 from enum import Enum
-from typing import List
+from typing import List, Dict, Any
 
 class DayOfWeek(str, Enum):
     """Enumeration of days of the week."""
@@ -27,6 +27,17 @@ class ClassSession:
     subject: str
     teacher: str
     type: SessionType = SessionType.LECTURE
+
+    def __str__(self) -> str:
+        return f"{self.subject} ({self.teacher})"
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "period": self.period,
+            "subject": self.subject,
+            "teacher": self.teacher,
+            "type": self.type.value
+        }
 
 @dataclass
 class TimetableResult:
