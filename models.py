@@ -30,9 +30,18 @@ class ClassSession:
 
 @dataclass
 class TimetableResult:
-    """Represents the final generated timetable result."""
-    timetable: dict
+    """Result of the scheduling process."""
+    timetable: Dict[str, List[Dict[str, Any]]]
     time_slots: List[str]
     days: List[str]
-    subject_teacher_map: dict
-    meta: dict = None
+    subject_teacher_map: Dict[str, str]
+    meta: Dict[str, Any] = None
+
+@dataclass
+class HistoryEntry:
+    """Represents a generation history record."""
+    id: int
+    timestamp: str
+    subjects: int
+    teachers: int
+    duration: float
