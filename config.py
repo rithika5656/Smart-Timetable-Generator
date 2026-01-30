@@ -4,27 +4,27 @@ Configuration settings for the application.
 import os
 
 # Server Config
-PORT = int(os.getenv("PORT", 5000))
-DEBUG = os.getenv("DEBUG", "True").lower() == "true"
-APP_VERSION = "1.0.0"
+PORT: int = int(os.getenv("PORT", 5000))
+DEBUG: bool = os.getenv("DEBUG", "True").lower() == "true"
+APP_VERSION: str = "1.0.0"
 
 # Business Logic Constraints
-DEFAULT_PERIODS = 6
-MIN_PERIODS = 1
-MAX_PERIODS = 10
-MAX_SUBJECTS = 20
-MAX_TEACHERS = 20
+DEFAULT_PERIODS: int = 6
+MIN_PERIODS: int = 1
+MAX_PERIODS: int = 10
+MAX_SUBJECTS: int = 20
+MAX_TEACHERS: int = 20
 
 # Algorithm Config
-START_HOUR = 9  # 9 AM
-DEFAULT_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-BREAK_AFTER_PERIOD = 3  # Insert break after every 3 periods
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-SUPPORTED_LANGUAGES = ["en", "es", "fr"]
+START_HOUR: int = 9  # 9 AM
+DEFAULT_DAYS: list = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+BREAK_AFTER_PERIOD: int = 3  # Insert break after every 3 periods
+ALLOWED_HOSTS: list = ["localhost", "127.0.0.1"]
+SUPPORTED_LANGUAGES: list = ["en", "es", "fr"]
 
 # Constraints Defaults
-DEFAULT_MAX_CONSECUTIVE = 2
-DEFAULT_MAX_DAILY = 4
+DEFAULT_MAX_CONSECUTIVE: int = 2
+DEFAULT_MAX_DAILY: int = 4
 
 # Security
-API_KEY = os.getenv("API_KEY", "dev-api-key")
+API_KEY: str = os.getenv("API_KEY", "dev-api-key")
