@@ -12,6 +12,7 @@ class Constraint(ABC):
         pass
 
 class MaxConsecutivePeriods(Constraint):
+    """Rule: Teachers should not have too many consecutive periods."""
     def __init__(self, max_periods: int = 2):
         self.max_periods = max_periods
 
@@ -36,6 +37,7 @@ class MaxConsecutivePeriods(Constraint):
         return violations
 
 class TeacherDailyLimit(Constraint):
+    """Rule: Teachers should not exceed max daily sessions."""
     def __init__(self, max_daily: int = 4):
         self.max_daily = max_daily
 
