@@ -7,6 +7,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 class RequestPerformanceMiddleware:
+    """
+    Middleware to calculate and add request processing time to headers.
+    """
     def __init__(self, app):
         self.app = app
 
