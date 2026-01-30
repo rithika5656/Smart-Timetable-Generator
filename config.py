@@ -6,6 +6,7 @@ import os
 # Server Config
 PORT = int(os.getenv("PORT", 5000))
 DEBUG = os.getenv("DEBUG", "True").lower() == "true"
+APP_VERSION = "1.0.0"
 
 # Business Logic Constraints
 DEFAULT_PERIODS = 6
