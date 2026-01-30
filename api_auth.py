@@ -6,6 +6,7 @@ from flask import request, jsonify
 from config import API_KEY
 
 def require_api_key(f):
+    """Decorator to require X-API-Key header."""
     @wraps(f)
     def decorated_function(*args, **kwargs):
         key = request.headers.get('X-API-Key')
