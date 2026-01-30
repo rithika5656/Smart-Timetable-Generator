@@ -1,3 +1,6 @@
+"""
+API Version 1 Routes.
+"""
 from flask import Blueprint, request, jsonify
 from api_auth import require_api_key
 from utils import api_response, extract_request_data, validate_request_data
