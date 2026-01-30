@@ -1,6 +1,8 @@
 # Use official lightweight Python image
 FROM python:3.9-slim
 
+LABEL maintainer="Smart Timetable Team"
+
 # Set working directory
 WORKDIR /app
 
