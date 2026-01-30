@@ -16,5 +16,6 @@
     "msg_success": "¡Horario generado con éxito!",
     "msg_error": "Ocurrió un error.",
     "msg_copied": "¡Copiado al portapapeles!",
-    "msg_reset": "Formulario reiniciado"
+    "msg_reset": "Formulario reiniciado",
+    "msg_loading": "Por favor espere..."
 }
