@@ -1,0 +1,20 @@
+{
+    "title": "Smart Timetable Generator",
+    "subtitle": "Generate conflict-free schedules in seconds",
+    "lbl_subjects": "Subjects",
+    "lbl_teachers": "Teachers",
+    "lbl_periods": "Periods per Day",
+    "ph_subjects": "Math, Physics, Chemistry",
+    "ph_teachers": "Mr. A, Ms. B, Dr. C",
+    "btn_generate": "Generate Timetable",
+    "btn_export": "📥 Export CSV",
+    "btn_print": "🖨️ Print",
+    "btn_copy": "📋 Copy JSON",
+    "btn_reset": "Reset",
+    "col_time": "Time",
+    "msg_generating": "Generating...",
+    "msg_success": "Timetable generated successfully!",
+    "msg_error": "An error occurred.",
+    "msg_copied": "Copied to clipboard!",
+    "msg_reset": "Form reset"
+}
