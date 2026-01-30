@@ -158,7 +158,7 @@ def export_csv() -> Response:
         logger.error(f"Export error: {e}")
         return jsonify({"error": "Failed to export CSV"}), 500
 
-        return jsonify({"error": "Failed to export CSV"}), 500
+
 
 @app.route("/lang/<lang_code>")
 def get_language_pack(lang_code: str) -> Tuple[Response, int]:
