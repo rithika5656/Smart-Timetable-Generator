@@ -108,6 +108,22 @@ def generate() -> Tuple[Response, int]:
     
     return api_response(data=result)
 
+@app.route("/validate", methods=["POST"])
+def validate_input() -> Tuple[Response, int]:
+    """
+    Pre-flight validation endpoint.
+    """
+    try:
+        data = request.get_json()
+        if not data:
+            return api_response(error="No data", status=400)
+            
+        subjects, teachers, periods = extract_request_data(data)
+        validate_request_data(subjects, teachers, periods)
+        return api_response(data={"valid": True})
+    except TimetableError as e:
+        return api_response(data={"valid": False, "error": e.message}, status=200)
+
 @app.route("/export", methods=["POST"])
 def export_csv() -> Response:
     """
@@ -129,6 +145,17 @@ def export_csv() -> Response:
     except Exception as e:
         logger.error(f"Export error: {e}")
         return jsonify({"error": "Failed to export CSV"}), 500
+
+@app.after_request
+def add_security_headers(response):
+    from security import get_security_headers
+    for key, value in get_security_headers().items():
+        response.headers[key] = value
+    return response
+
+# Apply Middleware
+from middleware import RequestPerformanceMiddleware
+app.wsgi_app = RequestPerformanceMiddleware(app.wsgi_app)
 
 if __name__ == "__main__":
     logger.info(f"Starting server on port {PORT}, debug={DEBUG}")
