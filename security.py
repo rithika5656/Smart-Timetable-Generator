@@ -5,7 +5,8 @@ from typing import Dict
 
 def get_security_headers() -> Dict[str, str]:
     """
-    Return basic security headers.
+    Return basic security headers to protect against common attacks.
+    Includes HSTS, XSS protection, and frame options.
     """
     return {
         "X-Content-Type-Options": "nosniff",
