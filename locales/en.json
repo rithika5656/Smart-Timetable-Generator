@@ -16,5 +16,6 @@
     "msg_success": "Timetable generated successfully!",
     "msg_error": "An error occurred.",
     "msg_copied": "Copied to clipboard!",
-    "msg_reset": "Form reset"
+    "msg_reset": "Form reset",
+    "msg_loading": "Please wait..."
 }
