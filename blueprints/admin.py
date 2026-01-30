@@ -1,3 +1,6 @@
+"""
+Admin Dashboard Routes.
+"""
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash
 from auth import login_required
 import os
