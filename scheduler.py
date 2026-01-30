@@ -156,13 +156,34 @@ class Scheduler:
             for session in sessions:
                 teacher_load[session.teacher] += 1
 
+        # Check Constraints
+        # Note: Ideally this would be inside the optimization loop, but for now we report them.
+        violations = self.check_constraints(optimized_schedule, {})
+
         return TimetableResult(
             timetable=serializable_schedule,
             time_slots=time_slots,
             days=self.days,
             subject_teacher_map=self.subject_teacher_map,
-            meta={"teacher_load": teacher_load}
+            meta={"teacher_load": teacher_load, "violations": violations}
         )
+
+    def check_constraints(self, schedule: Dict[str, List[ClassSession]], constraints_config: Dict[str, int]) -> List[str]:
+        """Run post-generation constraint checks."""
+        from constraints import MaxConsecutivePeriods, TeacherDailyLimit
+        
+        rules = [
+            MaxConsecutivePeriods(constraints_config.get('max_consecutive', 2)),
+            TeacherDailyLimit(constraints_config.get('max_daily', 4))
+        ]
+        
+        meta = {'teachers': self.teachers}
+        all_violations = []
+        
+        for rule in rules:
+            all_violations.extend(rule.validate(schedule, meta))
+            
+        return all_violations
 
 def generate_scheduler_response(subjects: List[str], teachers: List[str], periods: int) -> Dict[str, Any]:
     """Public interface for the scheduling engine."""
