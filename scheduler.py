@@ -125,11 +125,18 @@ class Scheduler:
                 for s in sessions
             ]
 
+        # Calculate teacher load
+        teacher_load = {teacher: 0 for teacher in self.teachers}
+        for day, sessions in optimized_schedule.items():
+            for session in sessions:
+                teacher_load[session.teacher] += 1
+
         return TimetableResult(
             timetable=serializable_schedule,
             time_slots=time_slots,
             days=self.days,
-            subject_teacher_map=self.subject_teacher_map
+            subject_teacher_map=self.subject_teacher_map,
+            meta={"teacher_load": teacher_load}
         )
 
 def generate_scheduler_response(subjects: List[str], teachers: List[str], periods: int) -> Dict[str, Any]:
