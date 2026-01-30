@@ -31,10 +31,10 @@ body {
     color: var(--text-main);
     line-height: 1.6;
     min-height: 100vh;
-    background-image: 
-        radial-gradient(at 0% 0%, hsla(253,16%,7%,0) 0, hsla(253,16%,7%,0) 50%), 
-        radial-gradient(at 50% 0%, hsla(225,39%,30%,0) 0, hsla(225,39%,30%,0) 50%), 
-        radial-gradient(at 100% 0%, hsla(339,49%,30%,0) 0, hsla(339,49%,30%,0) 50%);
+    background-image:
+        radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 0) 0, hsla(253, 16%, 7%, 0) 50%),
+        radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 0) 0, hsla(225, 39%, 30%, 0) 50%),
+        radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 0) 0, hsla(339, 49%, 30%, 0) 50%);
     background-size: cover;
     display: flex;
     flex-direction: column;
@@ -48,7 +48,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
+    background:
         radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.08), transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.08), transparent 25%);
     z-index: -1;
@@ -75,6 +75,7 @@ header h1 {
     font-weight: 700;
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
@@ -109,7 +110,8 @@ label {
     font-size: 0.95rem;
 }
 
-input, select {
+input,
+select {
     width: 100%;
     padding: 0.875rem 1rem;
     border: 2px solid var(--border);
@@ -120,7 +122,8 @@ input, select {
     background-color: #f8fafc;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
     outline: none;
     border-color: var(--primary);
     background-color: #fff;
@@ -338,12 +341,19 @@ td strong {
 
 /* Animations */
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeInUp {
@@ -351,6 +361,7 @@ td strong {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -362,6 +373,7 @@ td strong {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -369,9 +381,26 @@ td strong {
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-    20%, 40%, 60%, 80% { transform: translateX(5px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
 }
 
 /* Responsive */
@@ -379,11 +408,11 @@ td strong {
     header h1 {
         font-size: 2.5rem;
     }
-    
+
     .form-card {
         padding: 1.5rem;
     }
-    
+
     .timetable-container {
         padding: 1.5rem;
     }
