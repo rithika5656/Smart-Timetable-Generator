@@ -19,12 +19,10 @@ MAX_TEACHERS: int = 20
 START_HOUR: int = 9  # 9 AM
 DEFAULT_DAYS: list = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 BREAK_AFTER_PERIOD: int = 3  # Insert break after every 3 periods
-ALLOWED_HOSTS: list = ["localhost", "127.0.0.1"]
-SUPPORTED_LANGUAGES: list = ["en", "es", "fr"]
+
 
 # Constraints Defaults
 DEFAULT_MAX_CONSECUTIVE: int = 2
 DEFAULT_MAX_DAILY: int = 4
 
-# Security
-API_KEY: str = os.getenv("API_KEY", "dev-api-key")
+
