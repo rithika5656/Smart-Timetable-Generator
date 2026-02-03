@@ -1,5 +1,4 @@
 import { showToast } from './toast.js';
-import { t, initI18n } from './i18n.js';
 import { fetchHistory } from './history.js';
 import { initTheme } from './theme.js';
 
@@ -9,7 +8,6 @@ import { initTheme } from './theme.js';
 
 // Init
 document.addEventListener('DOMContentLoaded', () => {
-    initI18n();
     initTheme();
 
     // History Toggle
@@ -32,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 export function showLoading(loadingDiv, btn) {
     loadingDiv.classList.add('show');
-    loadingDiv.querySelector('p').textContent = t('msg_generating');
+    loadingDiv.querySelector('p').textContent = 'Generating...';
     if (btn) btn.disabled = true;
 }
 
@@ -42,7 +40,7 @@ export function hideLoading(loadingDiv, btn) {
 }
 
 export function showError(element, message) {
-    showToast(message || t('msg_error'), 'error');
+    showToast(message || 'An error occurred', 'error');
 }
 
 export function clearError(element) {
@@ -68,7 +66,7 @@ export function displayTimetable(data, containerId) {
     }
 
     // Build Header
-    let headerHtml = `<tr><th>${t('col_time')}</th>`;
+    let headerHtml = `<tr><th>Time</th>`;
     days.forEach(day => headerHtml += `<th>${day}</th>`);
     headerHtml += '</tr>';
     tableHead.innerHTML = headerHtml;
@@ -145,15 +143,15 @@ export function displayTimetable(data, containerId) {
     }
 
     // Export CSV
-    actionsDiv.appendChild(createButton(t('btn_export'), () => downloadCSV(data.timetable)));
+    actionsDiv.appendChild(createButton('Export CSV', () => downloadCSV(data.timetable)));
 
     // Print
-    actionsDiv.appendChild(createButton(t('btn_print'), () => window.print()));
+    actionsDiv.appendChild(createButton('Print', () => window.print()));
 
     // Copy JSON
-    actionsDiv.appendChild(createButton(t('btn_copy'), () => {
+    actionsDiv.appendChild(createButton('Copy JSON', () => {
         navigator.clipboard.writeText(JSON.stringify(data.timetable, null, 2));
-        showToast(t('msg_copied'), 'success');
+        showToast('Copied to clipboard', 'success');
     }));
 
     setTimeout(() => {
