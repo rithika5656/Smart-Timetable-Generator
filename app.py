@@ -6,13 +6,13 @@ import time
 from http import HTTPStatus
 from typing import Tuple
 
-from flask import Flask, render_template, request, Response
-from scheduler import generate_scheduler_response
+from flask import Flask, render_template, request, Response, jsonify
 
-# Import from new modules
+from scheduler import generate_scheduler_response
 from config import PORT, DEBUG, MAX_SUBJECTS, MAX_TEACHERS, MIN_PERIODS, MAX_PERIODS
 from exceptions import TimetableError
 from utils import api_response, extract_request_data, validate_request_data, generate_csv
+from database import init_app, get_db
 
 # --- Logging Setup ---
 logging.basicConfig(
@@ -22,6 +22,10 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+app.secret_key = 'dev-secret-key'
+
+# --- Database Init ---
+init_app(app)
 
 # --- Error Handlers ---
 @app.errorhandler(TimetableError)
@@ -39,22 +43,12 @@ def handle_generic_error(error: Exception) -> Tuple[Response, int]:
 # --- Routes ---
 @app.route("/health")
 def health_check() -> Tuple[Response, int]:
-    """
-    Health check endpoint.
-    
-    Returns:
-        JSON response indicating status.
-    """
+    """Health check endpoint."""
     return api_response(data={"status": "healthy", "timestamp": time.time()})
 
 @app.route("/info")
 def app_info() -> Tuple[Response, int]:
-    """
-    Application metadata endpoint.
-    
-    Returns:
-        JSON response with app version and limits.
-    """
+    """Application metadata endpoint."""
     info = {
         "app": "Smart Timetable Generator",
         "version": "1.0.0",
@@ -73,12 +67,7 @@ def index():
 
 @app.route("/generate", methods=["POST"])
 def generate() -> Tuple[Response, int]:
-    """
-    API endpoint to generate timetable.
-    
-    Returns:
-        JSON response with the generated timetable.
-    """
+    """API endpoint to generate timetable."""
     logger.info("Received generation request")
     start_time = time.time()
     
@@ -86,7 +75,7 @@ def generate() -> Tuple[Response, int]:
     if not data:
         raise TimetableError("Invalid JSON body")
         
-    # Extract and Validate (using utils)
+    # Extract and Validate
     subjects, teachers, periods_per_day = extract_request_data(data)
     validate_request_data(subjects, teachers, periods_per_day)
     
@@ -100,15 +89,14 @@ def generate() -> Tuple[Response, int]:
     duration = time.time() - start_time
     logger.info(f"Timetable generated successfully in {duration:.4f}s")
     
-    # Add metadata to result
+    # Add metadata
     result["meta"] = {
         "generation_time_seconds": round(duration, 4),
         "status": "success"
     }
     
-    # Save to DB
+    # Save to History
     try:
-        from database import get_db
         db = get_db()
         db.execute(
             'INSERT INTO history (subjects, teachers, periods, duration, status) VALUES (?, ?, ?, ?, ?)',
@@ -122,9 +110,7 @@ def generate() -> Tuple[Response, int]:
 
 @app.route("/validate", methods=["POST"])
 def validate_input() -> Tuple[Response, int]:
-    """
-    Pre-flight validation endpoint.
-    """
+    """Pre-flight validation endpoint."""
     try:
         data = request.get_json()
         if not data:
@@ -138,9 +124,7 @@ def validate_input() -> Tuple[Response, int]:
 
 @app.route("/export", methods=["POST"])
 def export_csv() -> Response:
-    """
-    Export timetable to CSV.
-    """
+    """Export timetable to CSV."""
     try:
         data = request.get_json()
         timetable = data.get("timetable")
@@ -157,51 +141,6 @@ def export_csv() -> Response:
     except Exception as e:
         logger.error(f"Export error: {e}")
         return jsonify({"error": "Failed to export CSV"}), 500
-
-
-
-@app.route("/lang/<lang_code>")
-def get_language_pack(lang_code: str) -> Tuple[Response, int]:
-    """
-    Get language translation pack.
-    """
-    from i18n import load_locale, get_supported_languages
-    from config import SUPPORTED_LANGUAGES
-    
-    if lang_code not in SUPPORTED_LANGUAGES:
-        return api_response(error="Language not supported", status=404)
-        
-    data = load_locale(lang_code)
-    return api_response(data=data)
-
-@app.after_request
-def add_security_headers(response):
-    from security import get_security_headers
-    for key, value in get_security_headers().items():
-        response.headers[key] = value
-    return response
-
-# Apply Middleware
-from middleware import RequestPerformanceMiddleware
-app.wsgi_app = RequestPerformanceMiddleware(app.wsgi_app)
-
-# Init Database
-from database import init_app
-init_app(app)
-
-# Register Blueprints
-from blueprints.admin import admin_bp
-from blueprints.api_v1 import api_v1
-
-app.register_blueprint(admin_bp)
-app.register_blueprint(api_v1)
-
-@app.route("/docs")
-def api_docs():
-    return render_template("swagger.html")
-
-# Set secret key for sessions
-app.secret_key = 'dev-secret-key'
 
 if __name__ == "__main__":
     logger.info(f"Starting server on port {PORT}, debug={DEBUG}")
